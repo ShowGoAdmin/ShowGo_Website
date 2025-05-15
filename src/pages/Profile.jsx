@@ -30,7 +30,6 @@ const Profile = () => {
           name: "",
           email: "",
           phone: "",
-          location: "",
           profilePicUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200", // Default image
           qrimageId: "",
      });
@@ -41,7 +40,6 @@ const Profile = () => {
                     name: user?.name || "John Doe",
                     email: user?.email || "johndoe@example.com",
                     phone: user?.phone || "",
-                    location: user?.location || "",
                     profilePicUrl: user?.profilePicUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200",
                     qrimageId: user?.qrimageId || "",
                });
@@ -147,8 +145,7 @@ const Profile = () => {
                     user.$id,
                     {
                          name: userDetails.name,
-                         phone: userDetails.phone,
-                         location: userDetails.location,
+                         phoneNumber: userDetails.phone,
                     }
                );
                
@@ -156,7 +153,6 @@ const Profile = () => {
                updateUser({
                     name: userDetails.name,
                     phone: userDetails.phone,
-                    location: userDetails.location,
                });
                
                setEditMode(false);
@@ -227,26 +223,6 @@ const Profile = () => {
                               <div className="flex items-center">
                                    <FiPhone className="text-gray-500 mr-2" />
                                    <p className="text-white">{userDetails.phone || "Not provided"}</p>
-                              </div>
-                         )}
-                    </div>
-                    
-                    {/* Location field */}
-                    <div className="space-y-2">
-                         <label className="text-gray-400 text-sm block">Location</label>
-                         {editMode ? (
-                              <input
-                                   type="text"
-                                   name="location"
-                                   value={userDetails.location}
-                                   onChange={handleInputChange}
-                                   className="w-full bg-gray-800/80 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-gray-400"
-                                   placeholder="Your city/location"
-                              />
-                         ) : (
-                              <div className="flex items-center">
-                                   <FiMapPin className="text-gray-500 mr-2" />
-                                   <p className="text-white">{userDetails.location || "Not provided"}</p>
                               </div>
                          )}
                     </div>
