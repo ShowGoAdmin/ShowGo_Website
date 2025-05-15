@@ -36,6 +36,7 @@ const EventDetails = ({ }) => {
   const { isAuthenticated, user, isLoading: authLoading } = useAuth();
   const [relatedEvents, setRelatedEvents] = useState([]);
   const [relatedEventsLoading, setRelatedEventsLoading] = useState(true);
+  const [isRelatedEventsCollapsed, setIsRelatedEventsCollapsed] = useState(false);
 
 
   useEffect(() => {
@@ -1089,9 +1090,30 @@ const EventDetails = ({ }) => {
               <span className="w-10 h-[2px] bg-red-500 inline-block mr-3"></span>
               Explore More Events
             </div>
-            <a href="/events" className="text-sm flex items-center text-gray-400 hover:text-white transition-colors">
-              View all events <FaArrowRight className="ml-2" />
-            </a>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setIsRelatedEventsCollapsed(!isRelatedEventsCollapsed)}
+                className="text-gray-400 hover:text-white transition-colors"
+                aria-label={isRelatedEventsCollapsed ? "Expand events" : "Collapse events"}
+              >
+                {isRelatedEventsCollapsed ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 16a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </button>
+              <button 
+                onClick={() => navigate("/events")} 
+                className="text-sm flex items-center text-gray-400 hover:text-white transition-colors"
+              >
+                View all events <FaArrowRight className="ml-2" />
+              </button>
+            </div>
           </h2>
 
           {relatedEventsLoading ? (
@@ -1101,17 +1123,22 @@ const EventDetails = ({ }) => {
           ) : relatedEvents.length === 0 ? (
             <div className="text-gray-400 text-center py-16 bg-black/20 backdrop-blur-sm rounded-xl border border-gray-800/50">
               <p>No other events found.</p>
-              <a href="/events" className="mt-4 inline-block px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors">
+              <button 
+                onClick={() => navigate("/events")} 
+                className="mt-4 inline-block px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors cursor-pointer"
+              >
                 Browse all events
-              </a>
-              </div>
-            ) : (
+              </button>
+            </div>
+          ) : (
             <div className="relative">
               {/* Shadow Indicator for scrollable content */}
-              <div className="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+              <div className={`absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none ${isRelatedEventsCollapsed ? 'hidden' : ''}`}></div>
+              
+              
               
               {/* Scrollable Container */}
-              <div className="overflow-x-auto pb-6 scrollbar-hide">
+              <div className={`overflow-x-auto pb-6 scrollbar-hide transition-all duration-300 ${isRelatedEventsCollapsed ? 'h-0 opacity-0 overflow-hidden' : 'opacity-100'}`}>
                 <div className="flex space-x-6" style={{ minWidth: 'max-content' }}>
                   {relatedEvents.map((event) => (
                     <div 

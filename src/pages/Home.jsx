@@ -822,8 +822,8 @@ const Home = () => {
                       </svg>
                     )}
                   </button>
-                </div>
-                
+        </div>
+
                 {!isEventListCollapsed && (
                   <>
                     <ul className="space-y-2">
@@ -941,14 +941,14 @@ const Home = () => {
                       <div 
                         key={event.$id} 
                         className="w-72 flex-shrink-0 bg-black/30 backdrop-blur-sm border border-gray-800/50 rounded-xl overflow-hidden hover:border-gray-600/50 transition-all transform hover:translate-y-[-4px] duration-300 shadow-lg"
-                        onClick={() => handleEventClick(event.$id)}
+                    onClick={() => handleEventClick(event.$id)}
                         role="button"
                         tabIndex={0}
-                      >
+                  >
                         <div className="h-40 w-full relative overflow-hidden">
-                          <img
-                            src={event.imageField}
-                            alt={event.name}
+                        <img
+                          src={event.imageField}
+                          alt={event.name}
                             className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                           />
                           
@@ -989,14 +989,14 @@ const Home = () => {
                               View
                             </button>
                           </div>
-                        </div>
+                      </div>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
+                </div>
+              )}
+        </div>
 
         {/* Transfer Ticket Section */}
         <div className="w-full flex flex-col justify-center items-center gap-8 md:flex-row md:justify-between md:items-center py-8 px-4 md:px-8 lg:px-12">
@@ -1039,7 +1039,7 @@ const Home = () => {
                 to="/events"
                 className="text-sm"
               />
-            </div>
+          </div>
         </div>
 
         {/* Group Booking Section */}
