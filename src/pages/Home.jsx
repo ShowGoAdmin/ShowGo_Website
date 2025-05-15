@@ -911,17 +911,23 @@ const Home = () => {
               <div className="flex items-center text-white">
                 Trending Events
               </div>
-              <a href="/events" className="text-sm flex items-center text-gray-400 hover:text-white transition-colors">
+              <button 
+                onClick={() => navigate("/events")} 
+                className="text-sm flex items-center text-gray-400 hover:text-white transition-colors border-none bg-transparent cursor-pointer"
+              >
                 View all events <FaArrowRight className="ml-2" />
-              </a>
+              </button>
             </h2>
 
             {events.length === 0 ? (
               <div className="text-gray-400 text-center py-16 bg-black/20 backdrop-blur-sm rounded-xl border border-gray-800/50">
                 <p>No trending events found.</p>
-                <a href="/events" className="mt-4 inline-block px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors">
+                <button 
+                  onClick={() => navigate("/events")}
+                  className="mt-4 inline-block px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors cursor-pointer"
+                >
                   Browse all events
-                </a>
+                </button>
               </div>
             ) : (
               <div className="relative">
@@ -935,14 +941,14 @@ const Home = () => {
                       <div 
                         key={event.$id} 
                         className="w-72 flex-shrink-0 bg-black/30 backdrop-blur-sm border border-gray-800/50 rounded-xl overflow-hidden hover:border-gray-600/50 transition-all transform hover:translate-y-[-4px] duration-300 shadow-lg"
-                    onClick={() => handleEventClick(event.$id)}
+                        onClick={() => handleEventClick(event.$id)}
                         role="button"
                         tabIndex={0}
-                  >
+                      >
                         <div className="h-40 w-full relative overflow-hidden">
-                        <img
-                          src={event.imageField}
-                          alt={event.name}
+                          <img
+                            src={event.imageField}
+                            alt={event.name}
                             className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                           />
                           
@@ -983,14 +989,14 @@ const Home = () => {
                               View
                             </button>
                           </div>
-                      </div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                </div>
-              )}
-        </div>
+              </div>
+            )}
+          </div>
 
         {/* Transfer Ticket Section */}
         <div className="w-full flex flex-col justify-center items-center gap-8 md:flex-row md:justify-between md:items-center py-8 px-4 md:px-8 lg:px-12">
