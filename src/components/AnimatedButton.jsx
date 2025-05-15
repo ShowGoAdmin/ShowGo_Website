@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 import './AnimatedButton.css';
 
 const AnimatedButton = ({ text, to, onClick, className = '' }) => {
-  // If a "to" prop is provided, render a Link, otherwise render a button
-  const ButtonTag = to ? Link : 'button';
-  const buttonProps = to ? { to } : { onClick };
+  // Check if this button is being used inside a Link or <a> tag
+  const isWrappedInLink = typeof to === 'string';
+  
+  // If a "to" prop is provided but we're not using it for routing (because parent is already handling it),
+  // render a div instead of another Link to avoid nested <a> tags
+  const ButtonTag = isWrappedInLink ? 'div' : (to ? Link : 'button');
+  
+  // Only pass routing props if we're actually using them
+  const buttonProps = isWrappedInLink ? {} : (to ? { to } : { onClick });
   
   // Special styling for specific button texts
   const getStyle = () => {
-    if (text === "Get Started") {s
+    if (text === "Get Started") {
       return { fontSize: '0.85em', letterSpacing: '-0.02em' };
     }
     return {};

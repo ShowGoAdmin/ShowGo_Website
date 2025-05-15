@@ -112,14 +112,52 @@ const Events = () => {
   const getMinPrice = (event) => {
     if (!event.categories?.length) return 0;
     
-    return event.categories.reduce((min, category) => {
-      const parts = category.split(':');
-      if (parts.length >= 2) {
-        const price = parseFloat(parts[1]);
-        return price < min && price > 0 ? price : min;
-      }
-      return min;
-    }, Infinity) || 0;
+    // Get the current phase for this event
+    const currentPhase = event.phase && Array.isArray(event.phase) && event.phase.length > 0
+      ? event.phase[event.phase.length - 1].split(':')[0]?.trim()
+      : null;
+    
+    // Filter categories by current phase and find minimum price
+    const validPrices = event.categories
+      .filter(cat => {
+        try {
+          const parts = cat.split(':').map(item => item.trim());
+          if (parts.length < 3) return false; // Need at least name:price:qty
+          
+          // If there's a phase tag (4th part), check if it matches current phase
+          const phaseTag = parts.length >= 4 ? parts[3] : null;
+          
+          // If the category has a phase tag, it must match current phase
+          // If no phase tag, include it regardless of current phase
+          const phaseMatch = phaseTag ? phaseTag === currentPhase : true;
+          
+          return phaseMatch;
+        } catch (err) {
+          console.log(`Invalid category format for event ${event.name}:`, cat);
+          return false;
+        }
+      })
+      .map(cat => {
+        try {
+          const parts = cat.split(':').map(item => item.trim());
+          if (parts.length >= 2) {
+            const price = parseFloat(parts[1]);
+            const qty = parts.length >= 3 ? parseInt(parts[2]) : 0;
+            return { price, available: qty };
+          }
+          return { price: Infinity, available: 0 };
+        } catch (err) {
+          console.log(`Error parsing price for event ${event.name}:`, cat);
+          return { price: Infinity, available: 0 };
+        }
+      })
+      .filter(ticket => ticket.available >= 0 && !isNaN(ticket.price) && ticket.price > 0);
+    
+    if (validPrices.length === 0) return 0;
+    
+    return validPrices.reduce((min, ticket) => 
+      ticket.price < min ? ticket.price : min, validPrices[0].price
+    );
   };
 
   // Apply filtering logic
@@ -136,16 +174,13 @@ const Events = () => {
 
     // Apply price filter if we have categories with prices
     if (event.categories?.length > 0 && filters.priceRange[0] > 0) {
-      // Extract minimum price from categories
-      const minPrice = event.categories.reduce((min, category) => {
-        const parts = category.split(':');
-        if (parts.length >= 2) {
-          const price = parseFloat(parts[1]);
-          return price < min ? price : min;
-        }
-        return min;
-      }, Infinity);
-
+      // Get minimum price from the current phase using our updated function
+      const minPrice = getMinPrice(event);
+      
+      // Skip events with no valid price
+      if (minPrice === 0) return true;
+      
+      // Filter by price range
       if (minPrice < filters.priceRange[0] || minPrice > filters.priceRange[1]) {
         return false;
       }
@@ -636,9 +671,9 @@ const Events = () => {
                       {/* Price */}
                       <div className="mt-4 pt-3 border-t border-gray-800/50 flex justify-between items-center">
                         <span className="text-yellow-500 font-semibold">
-                          {event.categories?.length > 0 && event.categories[0].includes(':') ? 
-                            `₹${event.categories[0].split(':')[1].trim()}` : 
-                            "₹TBA"}
+                          {getMinPrice(event) > 0 ? 
+                            `₹${getMinPrice(event)}` : 
+                            (event.price ? `₹${event.price}` : "₹TBA")}
                           <span className="text-xs text-gray-500 ml-1">onwards</span>
                         </span>
                         <button className="text-xs bg-white/10 hover:bg-white/20 px-4 py-1.5 rounded-full text-white transition-colors">

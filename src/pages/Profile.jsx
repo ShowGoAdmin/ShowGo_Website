@@ -347,28 +347,28 @@ const Profile = () => {
                     <div className="bg-black/70 backdrop-blur-md rounded-xl overflow-hidden shadow-xl border border-neutral-800 mb-8 mt-20">
                          <div className="px-6 py-4 flex flex-wrap justify-between items-center">
                               <Link to="/" className="flex items-center text-gray-300 hover:text-white transition-colors">
-                                   <FiArrowLeft className="mr-2" /> Back to Home
-                              </Link>
+                              <FiArrowLeft className="mr-2" /> Back to Home
+                         </Link>
                               
                               <div className="flex items-center gap-3 mt-3 sm:mt-0">
-                                   <button
-                                        onClick={() => setEditMode(!editMode)}
+                         <button
+                              onClick={() => setEditMode(!editMode)}
                                         className={`flex items-center px-4 py-2 rounded-full text-sm transition-colors ${
                                              editMode 
-                                                  ? "bg-gray-700 hover:bg-gray-600 text-white" 
+                                   ? "bg-gray-700 hover:bg-gray-600 text-white"
                                                   : "bg-white/10 hover:bg-white/20 text-white"
-                                        }`}
-                                   >
-                                        {editMode ? (
-                                             <>
-                                                  <FiX className="mr-2" /> Cancel
-                                             </>
-                                        ) : (
-                                             <>
-                                                  <FiEdit className="mr-2" /> Edit Profile
-                                             </>
-                                        )}
-                                   </button>
+                                   }`}
+                         >
+                              {editMode ? (
+                                   <>
+                                        <FiX className="mr-2" /> Cancel
+                                   </>
+                              ) : (
+                                   <>
+                                        <FiEdit className="mr-2" /> Edit Profile
+                                   </>
+                              )}
+                         </button>
                                    
                                    {editMode && (
                                         <button 
@@ -381,7 +381,7 @@ const Profile = () => {
                               </div>
                          </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                          {/* User card */}
                          <div className="lg:col-span-1">
@@ -389,9 +389,9 @@ const Profile = () => {
                                    <div className="p-6 flex flex-col items-center">
                                         <div className="relative group mb-4">
                                              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray-700/50 shadow-lg">
-                                                  <img
-                                                       src={userDetails.profilePicUrl}
-                                                       alt="profile"
+                                   <img
+                                        src={userDetails.profilePicUrl}
+                                        alt="profile"
                                                        className="h-full w-full object-cover"
                                                        onError={(e) => {
                                                             e.target.onerror = null;
@@ -400,23 +400,23 @@ const Profile = () => {
                                                   />
                                              </div>
                                              
-                                             {editMode && (
-                                                  <label
-                                                       htmlFor="profile-upload"
-                                                       className="absolute inset-0 bg-black bg-opacity-60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                                                  >
-                                                       <span className="text-white text-sm font-medium">Change Photo</span>
-                                                       <input
-                                                            type="file"
-                                                            id="profile-upload"
-                                                            className="hidden"
-                                                            accept="image/*"
-                                                            onChange={handleImageUpload}
-                                                       />
-                                                  </label>
-                                             )}
-                                        </div>
-                                        
+                                   {editMode && (
+                                        <label
+                                             htmlFor="profile-upload"
+                                             className="absolute inset-0 bg-black bg-opacity-60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                                        >
+                                             <span className="text-white text-sm font-medium">Change Photo</span>
+                                             <input
+                                                  type="file"
+                                                  id="profile-upload"
+                                                  className="hidden"
+                                                  accept="image/*"
+                                                  onChange={handleImageUpload}
+                                             />
+                                        </label>
+                                   )}
+                              </div>
+
                                         <h2 className="text-xl font-bold text-white mb-1">{userDetails.name}</h2>
                                         <p className="text-gray-400 mb-4">{userDetails.email}</p>
                                         
