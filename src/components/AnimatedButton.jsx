@@ -1,17 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './AnimatedButton.css';
 
 const AnimatedButton = ({ text, to, onClick, className = '' }) => {
-  // Check if this button is being used inside a Link or <a> tag
-  const isWrappedInLink = typeof to === 'string';
-  
-  // If a "to" prop is provided but we're not using it for routing (because parent is already handling it),
-  // render a div instead of another Link to avoid nested <a> tags
-  const ButtonTag = isWrappedInLink ? 'div' : (to ? Link : 'button');
-  
-  // Only pass routing props if we're actually using them
-  const buttonProps = isWrappedInLink ? {} : (to ? { to } : { onClick });
+  const navigate = useNavigate();
   
   // Special styling for specific button texts
   const getStyle = () => {
@@ -23,14 +15,27 @@ const AnimatedButton = ({ text, to, onClick, className = '' }) => {
   
   const textStyle = getStyle();
 
+  // Handle navigation 
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(e);
+    } else if (to) {
+      e.preventDefault();
+      navigate(to);
+    }
+  };
+
+  // If a "to" prop is provided, render as a button with onClick handler
+  // Otherwise, render as whatever was specified (button or Link)
   return (
-    <ButtonTag 
+    <button 
       className={`animated-btn ${className}`} 
-      {...buttonProps}
+      onClick={handleClick}
+      type="button"
     >
       <span className="text" style={textStyle}>{text}</span>
       <span aria-hidden className="marquee" style={textStyle}>{text}</span>
-    </ButtonTag>
+    </button>
   );
 };
 

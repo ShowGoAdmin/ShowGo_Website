@@ -124,7 +124,7 @@ const Navbar = () => {
       {/* Middle Section - Navigation Links (Desktop) */}
       <ul className="hidden md:flex justify-center flex-1 max-w-md mx-8 text-lg">
   {["home", "events", "about"].map((tab, index) => (
-    <li key={tab} className={`mr-4 ${index === 2 ? "ml-10" : ""}`}>
+    <li key={tab} className={`mr-4 ${index === 0 ? "ml-10" : ""}`}>
             <Link
               to={`/${tab === "home" ? "" : tab}`}
               onClick={() => setActiveTab(tab)}

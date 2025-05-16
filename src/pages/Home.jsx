@@ -702,9 +702,10 @@ const Home = () => {
               <AnimatedButton
                 text="Dive In"
                 to="/events"
+                onClick={handleDiveInClick}
                 className="text-lg"
               />
-        </div>
+            </div>
           </div>
 
           {/* Feature Section - Now in its own section */}
@@ -816,7 +817,7 @@ const Home = () => {
                       </svg>
                     )}
                   </button>
-        </div>
+                </div>
 
                 {!isEventListCollapsed && (
                   <>
@@ -1002,6 +1003,7 @@ const Home = () => {
               <AnimatedButton
                 text="Explore"
                 to="/events"
+                onClick={() => navigate("/events")}
                 className="text-sm"
               />
           </div>
@@ -1031,6 +1033,7 @@ const Home = () => {
               <AnimatedButton
                 text="Explore"
                 to="/events"
+                onClick={() => navigate("/events")}
                 className="text-sm"
               />
           </div>
@@ -1045,6 +1048,7 @@ const Home = () => {
               <AnimatedButton
                 text="Explore"
                 to="/events"
+                onClick={() => navigate("/events")}
                 className="text-sm"
               />
           </div>
