@@ -679,13 +679,7 @@ const Home = () => {
     <>
       <div className="overflow-x-hidden bg-black relative">
         {/* Fixed background image with adjusted settings for better visibility */}
-        <div 
-          className="fixed inset-0 w-full h-full bg-no-repeat bg-cover bg-center z-0 opacity-60"
-          style={{
-            backgroundImage: `url(${EventBackground})`,
-            filter: 'blur(5px) brightness(0.4) saturate(1.1)',
-          }}
-        ></div>
+        
         
         <div 
           className="fixed inset-0 w-full h-full z-0 opacity-40 pointer-events-none"
