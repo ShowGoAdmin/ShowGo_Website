@@ -127,7 +127,7 @@ const Navbar = () => {
         <li key={tab} className={`mr-4 ${index === 2 ? "mr-30" : ""}`}>
             <Link
               to={`/${tab === "home" ? "" : tab}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => setActiveTab(tab)} 
             >
               <button
                 className={`w-[87px] h-[40px] rounded-full text-lg font-semibold flex items-center justify-center cursor-pointer ${
