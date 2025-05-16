@@ -122,8 +122,8 @@ const Navbar = () => {
       </div>
 
       {/* Middle Section - Navigation Links (Desktop) */}
-      <ul className="hidden md:flex justify-center flex-1 max-w-md mx-8 text-lg">
-  {["home", "events", "about"].map((tab, index) => (
+      <ul className="hidden md:flex justify-start flex-1 max-w-md mx-8 text-lg">
+      {["home", "events", "about"].map((tab, index) => (
     <li key={tab} className={`mr-4 ${index === 0 ? "ml-10" : ""}`}>
             <Link
               to={`/${tab === "home" ? "" : tab}`}
