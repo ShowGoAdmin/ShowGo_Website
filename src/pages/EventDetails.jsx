@@ -1062,7 +1062,7 @@ const EventDetails = ({ }) => {
             )}
           <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg max-w-[80%] overflow-hidden">
             <span className="text-white text-sm font-medium truncate block">{completeVenueInfo}</span>
-          </div>
+              </div>
         </div>
         </div>
 
